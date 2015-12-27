@@ -6,17 +6,14 @@
     else // Plain browser env
         this.PasteArea = mod();
 })(function () {
-
-
-
     function PasteArea(id, url, key)
     {
-        this.element = document.getElementById(id);
-        this.url = url;
-        this.imgKey = key || "PasteAreaImgKey";
+        this.element = document.getElementById(id); 
+        this.url = url; //后端处理图片的路径
+        this.imgKey = key || "PasteAreaImgKey"; //提到到后端的name
 
     }
-    PasteArea.prototype.paste = function (callback, formData)
+    PasteArea.prototype.paste = function (callback, formData) 
     {
         var thatthat = this;
         this.element.addEventListener('paste', function (e) {

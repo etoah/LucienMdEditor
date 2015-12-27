@@ -59,6 +59,8 @@
   <ItemGroup>
     <Content Include="PasteArea.aspx" />
     <Content Include="PasteImage.js" />
+    <Content Include="require.js" />
+    <Content Include="requirejs.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +72,13 @@
       <DependentUpon>PasteArea.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="requirejs.aspx.cs">
+      <DependentUpon>requirejs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="requirejs.aspx.designer.cs">
+      <DependentUpon>requirejs.aspx</DependentUpon>
+    </Compile>
     <Compile Include="UploadHandler.ashx.cs">
       <DependentUpon>UploadHandler.ashx</DependentUpon>
     </Compile>

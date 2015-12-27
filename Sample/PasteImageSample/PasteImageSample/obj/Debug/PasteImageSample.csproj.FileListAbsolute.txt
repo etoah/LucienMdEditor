@@ -1,0 +1,5 @@
+F:\Projects\FrontEnd\PasteArea\Sample\PasteImageSample\PasteImageSample\bin\PasteImageSample.dll
+F:\Projects\FrontEnd\PasteArea\Sample\PasteImageSample\PasteImageSample\bin\PasteImageSample.pdb
+F:\Projects\FrontEnd\PasteArea\Sample\PasteImageSample\PasteImageSample\obj\Debug\PasteImageSample.csprojResolveAssemblyReference.cache
+F:\Projects\FrontEnd\PasteArea\Sample\PasteImageSample\PasteImageSample\obj\Debug\PasteImageSample.dll
+F:\Projects\FrontEnd\PasteArea\Sample\PasteImageSample\PasteImageSample\obj\Debug\PasteImageSample.pdb

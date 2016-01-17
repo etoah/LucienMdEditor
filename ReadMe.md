@@ -11,7 +11,7 @@
 ####直接调用：
 ```html
 <div id="box" style="width: 800px; height: 400px; border: 1px solid;" contenteditable="true"></div>
-<script type="text/javascript" src="PasteImage.js"></script>
+<script type="text/javascript" src="UploadImage.js"></script>
 
  new PasteArea("box", "UploadHandler.ashx").paste(function (xhr) {
                     var img = new Image();

@@ -1,21 +1,22 @@
+﻿
 (function(mod) {
     if (typeof exports == "object" && typeof module == "object") // CommonJS
         module.exports = mod();
     else if (typeof define == "function" && define.amd) // AMD
         return define([], mod);
     else // Plain browser env
-        this.PasteArea = mod();
+        this.UploadImage = mod();
 })(function () {
 
 
     //public
-    function PasteArea(id, url, key) {
+    function UploadImage(id, url, key) {
         this.element = document.getElementById(id);
         this.url = url; //后端处理图片的路径
-        this.imgKey = key || "PasteAreaImgKey"; //提到到后端的name
+        this.imgKey = key || "AreaImgKey"; //提到到后端的name
 
     }
-    PasteArea.prototype.paste = function (callback, formData) {
+    UploadImage.prototype.paste = function (callback, formData) {
         var thatthat = this;
         this.element.addEventListener('paste', function (e) {//处理目标容器（id）的paste事件
 
@@ -51,5 +52,5 @@
 
     }
 
-    return PasteArea;
+    return UploadImage;
 });

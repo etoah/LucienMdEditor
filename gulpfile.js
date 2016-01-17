@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-  //  htmlmin = require('gulp-htmlmin'), //htmlÑ¹Ëõ
+  //  htmlmin = require('gulp-htmlmin'), //htmlÑ¹ï¿½ï¿½
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
     clean = require('gulp-clean'),
@@ -7,40 +7,40 @@ var gulp = require('gulp'),
     notify = require('gulp-notify');
 
 
-// Ô¤ÉèÈÎÎñ
+// Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 gulp.task('default', ['clean'], function () {
     gulp.start('js', 'copy');
 });
 
 
 gulp.task('js', function () {
-    return gulp.src('PasteImage.js')
+    return gulp.src('UploadImage.js')
         .pipe(uglify())
-		.pipe(rename("PasteImage.min.js"))
+		.pipe(rename("UploadImage.min.js"))
         .pipe(gulp.dest('./'))
         .pipe(notify({message: 'js task complete'}));
 });
 
 gulp.task('copy', function () {
-    return gulp.src(['PasteImage.js',"PasteImage.min.js"])
+    return gulp.src(['UploadImage.js',"UploadImage.min.js"])
         .pipe(gulp.dest("./Sample/PasteImageSample/PasteImageSample"))
 		.pipe(notify({message: 'copy task complete'}));
 		
 });
 
-// ÇåÀí
+// ï¿½ï¿½ï¿½ï¿½
 gulp.task('clean', function () {
-    return gulp.src(['./Sample/PasteImageSample/PasteImageSample/PasteImage.js','./Sample/PasteImageSample/PasteImageSample/PasteImage.min.js'], {read: false})
+    return gulp.src(['./Sample/PasteImageSample/PasteImageSample/UploadImage.js','./Sample/PasteImageSample/PasteImageSample/UploadImage.min.js'], {read: false})
         .pipe(clean());
 });
 
 
 
-// ¿´ÊÖ
+// ï¿½ï¿½ï¿½ï¿½
 gulp.task('watch', function () {
 
     //js
-    gulp.watch('PasteImage.js', ['js']);
+    gulp.watch('UploadImage.js', ['js']);
 
 
 });

@@ -16,7 +16,7 @@ namespace PasteImageSample
         public void ProcessRequest(HttpContext context)
         {
             context.Response.ContentType = "text/plain";
-            string strData = context.Request["PasteAreaImgKey"].ToString(); //取的base64编码
+            string strData = context.Request["AreaImgKey"].ToString(); //取的base64编码
             Bitmap img=Base64StringToImage(strData);
             string imgName ="/"+ DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".jpg";
             if (img != null)

@@ -16,9 +16,9 @@
 
             <script>
 
-                require(['PasteImage'], function (PasteArea) {
+                require(['UploadImage'], function (UploadImage) {
 
-                    new PasteArea("box", "UploadHandler.ashx").paste(function (xhr) {
+                    new UploadImage("box", "UploadHandler.ashx").paste(function (xhr) {
                         var img = new Image();
                         img.src = xhr.responseText;
                         this.appendChild(img);

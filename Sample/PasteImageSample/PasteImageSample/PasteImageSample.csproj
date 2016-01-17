@@ -58,9 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="PasteArea.aspx" />
-    <Content Include="PasteImage.js" />
     <Content Include="require.js" />
     <Content Include="requirejs.aspx" />
+    <Content Include="UploadImage.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

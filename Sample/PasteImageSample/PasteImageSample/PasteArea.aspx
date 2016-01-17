@@ -12,10 +12,10 @@
         <div>
             请截图后粘贴：
             <div id="box" style="width: 800px; height: 400px; border: 1px solid;" contenteditable="true"></div>
-            <script type="text/javascript" src="PasteImage.js"></script>
+            <script type="text/javascript" src="UploadImage.js"></script>
 
             <script>
-                new PasteArea("box", "UploadHandler.ashx").paste(function (xhr) {
+                new UploadImage("box", "UploadHandler.ashx").paste(function (xhr) {
                     var img = new Image();
                     img.src = xhr.responseText;
                     this.appendChild(img);

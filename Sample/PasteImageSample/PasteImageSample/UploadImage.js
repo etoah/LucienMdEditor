@@ -1,4 +1,4 @@
-
+"use strict";
 (function(mod) {
     if (typeof exports == "object" && typeof module == "object") // CommonJS
         module.exports = mod();
@@ -22,7 +22,7 @@
 
             if (e.clipboardData && e.clipboardData.items[0].type.indexOf('image') > -1) {
                 var that = this,
-                    reader = new FileReader();
+                    reader = new FileReader(),
                 file = e.clipboardData.items[0].getAsFile();//读取e.clipboardData中的数据
 
                 reader.onload = function (e) { //reader读取完成后，xhr上传

@@ -10,7 +10,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            请截图后粘贴：
+            请截图后粘贴或拖拽到下框：
             <div id="box" style="width: 800px; height: 400px; border: 1px solid;" contenteditable="true"></div>
             <script type="text/javascript" src="UploadImage.js"></script>
 

@@ -1,8 +1,10 @@
 ##图片粘贴上传插件
 
-截图后直接粘贴上传。    
+* 截图后直接粘贴上传。    
 ![](./doc/howtouse.gif)  
-   
+
+* 拖拽上传    
+![](./doc/drap.gif)     
 **http网络**     
 ![](./doc/requestAndRes.jpg) 
 

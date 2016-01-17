@@ -22,17 +22,16 @@
 
             if (e.clipboardData && e.clipboardData.items[0].type.indexOf('image') > -1) {
                 var that = this,
-                    reader = new FileReader(),
                 file = e.clipboardData.items[0].getAsFile();//读取e.clipboardData中的数据
 
-                reader.onload = function (e) { //reader读取完成后，xhr上传
+                dataReader(file,function (e) { //reader读取完成后，xhr上传
                     var fd = formData || (new FormData());
                     fd.append(thatthat.imgKey, this.result); // this.result得到图片的base64
 
                     xhRequest('POST',thatthat.url,fd,callback,that);
 
-                };
-                reader.readAsDataURL(file);//获取base64编码
+                });
+
             }
         }, false);
 
@@ -87,10 +86,16 @@
         document.addEventListener("dragover",preventDefault());//拖来拖去
     }
 
-    function preventDefault(e){    //拖离
+    function preventDefault(e){
         e.preventDefault();
         e.returnValue = false;
     }
 
+    function dataReader(file,callback)
+    {
+        var  reader = new FileReader();
+        reader.onload =callback;
+        reader.readAsDataURL(file);//获取base64编码
+    }
     return UploadImage;
 });

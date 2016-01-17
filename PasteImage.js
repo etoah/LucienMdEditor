@@ -7,6 +7,8 @@
         this.PasteArea = mod();
 })(function () {
 
+
+    //public
     function PasteArea(id, url, key) {
         this.element = document.getElementById(id);
         this.url = url; //后端处理图片的路径
@@ -23,18 +25,31 @@
                 file = e.clipboardData.items[0].getAsFile();//读取e.clipboardData中的数据
 
                 reader.onload = function (e) { //reader读取完成后，xhr上传
-                    var xhr = new XMLHttpRequest(),
-                        fd = formData || (new FormData());;
-                    xhr.open('POST', thatthat.url, true);
-                    xhr.onload = function () {
-                        callback.call(that, xhr);
-                    }
+                    var fd = formData || (new FormData());
                     fd.append(thatthat.imgKey, this.result); // this.result得到图片的base64
-                    xhr.send(fd);
-                }
+
+                    xhRequest('POST',thatthat.url,fd,callback,that);
+
+                };
                 reader.readAsDataURL(file);//获取base64编码
             }
         }, false);
+
+    };
+
+    //private
+
+    function xhRequest(method,url,formData,callback,that)
+    {
+        var xhr=new XMLHttpRequest();
+        xhr.open(method,url,true);
+        xhr.onload=function()
+        {
+            callback&&callback.call(that||this,xhr);
+        }
+        xhr.send(formData||(new FormData()));
+
     }
+
     return PasteArea;
-})
+});

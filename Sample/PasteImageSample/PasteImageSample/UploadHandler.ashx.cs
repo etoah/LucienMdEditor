@@ -16,14 +16,24 @@ namespace PasteImageSample
         public void ProcessRequest(HttpContext context)
         {
             context.Response.ContentType = "text/plain";
-            string strData = context.Request["AreaImgKey"].ToString(); //取的base64编码
-            Bitmap img=Base64StringToImage(strData);
-            string imgName ="/"+ DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".jpg";
-            if (img != null)
+           
+            if (context.Request.Files.Count == 0)
             {
-                img.Save(HttpContext.Current.Server.MapPath(IMG_PATH) + imgName, System.Drawing.Imaging.ImageFormat.Jpeg);
+                string strData = context.Request["AreaImgKey"].ToString(); //取的base64编码
+                Bitmap img = Base64StringToImage(strData);
+                string imgName = "/" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".jpg";
+                if (img != null)
+                {
+                    img.Save(HttpContext.Current.Server.MapPath(IMG_PATH) + imgName, System.Drawing.Imaging.ImageFormat.Jpeg);
 
-                context.Response.Write(IMG_PATH+imgName);
+                    context.Response.Write(IMG_PATH + imgName);
+                }
+            }
+            else
+            {
+                string imgName = "/" +DateTime.Now.ToString("yyyyMMddHHmmssfff") + context.Request.Files[0].FileName;
+                context.Request.Files[0].SaveAs(HttpContext.Current.Server.MapPath(IMG_PATH) + imgName);
+                context.Response.Write(IMG_PATH + imgName);
             }
 
         }

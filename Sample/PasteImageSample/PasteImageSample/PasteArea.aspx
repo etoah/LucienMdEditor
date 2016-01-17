@@ -15,7 +15,7 @@
             <script type="text/javascript" src="UploadImage.js"></script>
 
             <script>
-                new UploadImage("box", "UploadHandler.ashx").paste(function (xhr) {
+                new UploadImage("box", "UploadHandler.ashx").upload(function (xhr) {
                     var img = new Image();
                     img.src = xhr.responseText;
                     this.appendChild(img);

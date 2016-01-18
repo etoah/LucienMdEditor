@@ -64,6 +64,8 @@
         this.drag(callback,formData);
         this.paste(callback,formData);
     };
+
+    preventDragDefault();
     //private
 
     function xhRequest(method,url,formData,callback,callbackContext)
@@ -80,15 +82,14 @@
 
     function preventDragDefault()//阻止浏览器默认将图片打开的行为
     {
-        document.addEventListener("dragleave",preventDefault());//拖离
-        document.addEventListener("drop",preventDefault());//拖后放
-        document.addEventListener("dragenter",preventDefault());//拖进
-        document.addEventListener("dragover",preventDefault());//拖来拖去
+        document.addEventListener("dragleave",preventDefault);//拖离
+        document.addEventListener("drop",preventDefault);//拖后放
+        document.addEventListener("dragenter",preventDefault);//拖进
+        document.addEventListener("dragover",preventDefault);//拖来拖去
     }
 
     function preventDefault(e){
         e.preventDefault();
-        e.returnValue = false;
     }
 
     function dataReader(file,callback)

@@ -1,8 +1,8 @@
 #图片上传插件ImgUploadJS：用HTML5 File API 实现截图粘贴上传、拖拽上传
 ##一 . 背景及效果
 当前互联网上传文件最多的就是图片文件了，但是传统web图片的截图上传需要：截图保存->选择路径->保存后再点击上传->选择路径->上传->插入。      
-图片文件上传也需要：选择路径再->上传->插入，步骤繁杂，互联网体验为王，如果支持截图粘贴上传、拖拽上传将大大提升体验。
-当前知乎和github对现代浏览器支持这两种功能，今天就这个插件实现什么功能，怎么使用， 和原理聊一聊。
+图片文件上传也需要：选择路径再->上传->插入，步骤繁杂，互联网体验为王，如果支持截图粘贴上传、拖拽上传将大大提升体验。   
+当前知乎和github对现代浏览器均支持这两种特性，闲来无事就学习实现了一下，今天就说一说这个1kb插件实现什么功能，怎么使用和原理。
 
 首先看一下插效果:   
 * 截图后直接粘贴上传。    
@@ -20,7 +20,7 @@
 <div id="box" style="width: 800px; height: 400px; border: 1px solid;" contenteditable="true"></div>
 <script type="text/javascript" src="UploadImage.js"></script>
 
-  new UploadImage("box", "UploadHandler.ashx").upload(function (xhr) {
+  new UploadImage("box", "UploadHandler.ashx").upload(function (xhr) {//上传完成后的回调
                     var img = new Image();
                     img.src = xhr.responseText;
                     this.appendChild(img);
@@ -34,7 +34,7 @@
             <script>
                 require(['UploadImage'], function (UploadImage) {
 
-                    new UploadImage("box", "UploadHandler.ashx").upload(function (xhr) {
+                    new UploadImage("box", "UploadHandler.ashx").upload(function (xhr) {//上传完成后的回调
                         var img = new Image();
                         img.src = xhr.responseText;
                         this.appendChild(img);
@@ -60,7 +60,7 @@
     
 
  以下是初版本代码，比较简单。不再赘述。
-###示例代码
+###部份核心代码
 
 ```javascript
 function UploadImage(id, url, key)
@@ -96,7 +96,7 @@ function UploadImage(id, url, key)
     }
 
 ```
-后端及详细代码请移动[github](https://github.com/etoah/ImgUploadJS):https://github.com/etoah/ImgUploadJS
+后端及详细代码请移步：[github](https://github.com/etoah/ImgUploadJS):https://github.com/etoah/ImgUploadJS
 
 
 ##五. 其它功能

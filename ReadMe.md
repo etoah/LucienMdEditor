@@ -15,7 +15,7 @@
 <div id="box" style="width: 800px; height: 400px; border: 1px solid;" contenteditable="true"></div>
 <script type="text/javascript" src="UploadImage.js"></script>
 
- new PasteArea("box", "UploadHandler.ashx").paste(function (xhr) {
+  new UploadImage("box", "UploadHandler.ashx").upload(function (xhr) {
                     var img = new Image();
                     img.src = xhr.responseText;
                     this.appendChild(img);
@@ -26,69 +26,36 @@
 ```html
 <div id="box" style="width: 800px; height: 400px; border: 1px solid;" contenteditable="true"></div>
             <script type="text/javascript" src="require.js"></script>
-
             <script>
+                require(['UploadImage'], function (UploadImage) {
 
-                require(['PasteImage'], function (PasteArea) {
-
-                    new PasteArea("box", "UploadHandler.ashx").paste(function (xhr) {
+                    new UploadImage("box", "UploadHandler.ashx").upload(function (xhr) {
                         var img = new Image();
                         img.src = xhr.responseText;
                         this.appendChild(img);
                     });
 
                 })
-
-
             </script>
-
-```
+   ```
+   
 
 ###浏览器支持
-
-IE11,Chrome,FireFox
+当前版本只支持以下，浏览器，后期可能会支持更多浏览器，如ie10等。
+* IE11
+* Chrome
+* FireFox
+* Safari(未测式，理论应该支持)
 
 ###原理
 
+1. 粘贴上传   
 处理目标容器（id）的paste事件，读取e.clipboardData中的数据，如果是图片进行以下处理：
-获取文件的base64代码，并构建FormData上传。
+用H5 File API(FileReader)获取文件的base64代码，并构建FormData异步上传。
+2. 拖拽上传    
+处理目标容器（id）的drop事件，读取e.dataTransfer.files（H5 File API: FileList）中的数据，如果是图片并构建FormData异步上传。
+    
 
-###代码
-
-```javascript
-function PasteArea(id, url, key)
-    {
-        this.element = document.getElementById(id); 
-        this.url = url; //后端处理图片的路径
-        this.imgKey = key || "PasteAreaImgKey"; //提到到后端的name
-
-    }
-    PasteArea.prototype.paste = function (callback, formData) 
-    {
-        var thatthat = this;
-        this.element.addEventListener('paste', function (e) {//处理目标容器（id）的paste事件
-
-                if (e.clipboardData && e.clipboardData.items[0].type.indexOf('image') > -1) {
-                    var that = this,
-                        reader =  new FileReader();
-                    file = e.clipboardData.items[0].getAsFile();//读取e.clipboardData中的数据
-
-                    reader.onload = function (e) { //reader读取完成后，xhr上传
-                        var xhr = new XMLHttpRequest(),
-                            fd = formData || (new FormData());;
-                        xhr.open('POST', thatthat.url, true);
-                        xhr.onload = function () {
-                            callback.call(that, xhr);
-                        }
-                        fd.append(thatthat.imgKey, this.result); // this.result得到图片的base64
-                        xhr.send(fd);
-                    }
-                    reader.readAsDataURL(file);//获取base64编码
-                }
-            }, false);
-    }
-
-```
 
 
 

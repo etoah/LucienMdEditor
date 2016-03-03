@@ -1,0 +1,26 @@
+{
+  "name": "ImgUploadJS",
+  "version": "1.0.0",
+  "description": "* 截图后直接粘贴上传。    \r ![](./doc/howtouse.gif)",
+  "main": "gulpfile.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/etoah/ImgUploadJS.git"
+  },
+  "keywords": [],
+  "author": "Lucein",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/etoah/ImgUploadJS/issues"
+  },
+  "homepage": "https://github.com/etoah/ImgUploadJS",
+  "dependencies": {
+    "codemirror": "^5.12.0"
+  }
+}

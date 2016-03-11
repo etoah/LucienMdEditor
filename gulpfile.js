@@ -61,7 +61,7 @@ gulp.task('clean', function () {
 gulp.task('watch', function () {
 
     //js
-    gulp.watch('UploadImage.js', ['js']);
+    gulp.watch('UploadImage.js', ['js','copy']);
 
 
 });

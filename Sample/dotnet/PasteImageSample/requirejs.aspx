@@ -15,8 +15,7 @@
             <script type="text/javascript" src="require.js"></script>
 
             <script>
-
-                require(['UploadImage'], function (UploadImage) {
+ require(['UploadImage'], function (UploadImage) {
 
                     new UploadImage("box", "UploadHandler.ashx").upload(function (xhr) {
                         var img = new Image();
@@ -25,6 +24,7 @@
                     });
 
                 })
+               
 
 
             </script>

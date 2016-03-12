@@ -3,7 +3,7 @@ Sync=require("./sync.coffee")
 
 class ImageUploader extends Component
   constructor:(id, url, key) ->
-    super()
+    super(id)
     @url = url #后端处理图片的路径
     @imgKey = key or "AreaImgKey" #提到到后端的name
 
@@ -26,7 +26,7 @@ class ImageUploader extends Component
     reader.readAsDataURL file #获取base64编码
 
 
-  UploadImage::paste = (callback, formData) ->
+  ImageUploader::paste = (callback, formData) ->
     _this = this
     @contain.addEventListener "paste", ((e) ->
 
@@ -35,8 +35,8 @@ class ImageUploader extends Component
         file = e.clipboardData.items[0].getAsFile()
         dataReader file, (e) ->
           fd = formData or (new FormData())
-          fd.append thatthat.imgKey, @result
-          Sync "POST", thatthat.url, fd,()->
+          fd.append _this.imgKey, @result
+          Sync "POST", _this.url, fd,()->
             callback.apply(this,arguments)
             _this.publish("pasted",this)
           , that
@@ -44,7 +44,7 @@ class ImageUploader extends Component
 
     ), false
 
-UploadImage::drag = (callback, formData) ->
+ImageUploader::drag = (callback, formData) ->
   that = this
   @contain.addEventListener "drop", ((e) ->
     e.preventDefault()
@@ -63,8 +63,10 @@ UploadImage::drag = (callback, formData) ->
 
   ), false
 
-UploadImage::upload = (callback, formData) ->
+ImageUploader::upload = (callback, formData) ->
   @drag callback, formData
   @paste callback, formData
 
-  module.exports=ImageUploader
+
+
+module.exports=ImageUploader

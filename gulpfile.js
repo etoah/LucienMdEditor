@@ -12,7 +12,7 @@ var config=
 {
     coffee_files:"./src/*.coffee",
     build_dir:"./dist",
-    bin_dir:"./dist/bin/",
+    bin_dir:"./dist/bin",
     outjs:'LucienMardown.js',
     outminjs:'LucienMardown.min.js',
     netsample:'./Sample/dotnet/PasteImageSample/',
@@ -29,20 +29,23 @@ gulp.task('coffee', ['clean'], function() {
     gulp.src(config.coffee_files)
         .pipe(coffeeify())
         .pipe(gulp.dest(config.build_dir))
-        .pipe(notify({message: 'coffee task complete'}));
+      //  .pipe(notify({message: 'coffee task complete'}));
 });
 
 
-gulp.task('js',function(){
-    gulp.src(config.build_dir+"/*.js")
-        .pipe(concat('LucienMardown.js'))
-        .pipe(gulp.dest(config.bin_dir))
+gulp.task('js',['coffee'],function(){
 
+    gulp.src(config.build_dir+"/*.js")
+        .pipe(concat(config.outjs))
+        .pipe(gulp.dest(config.bin_dir))
         .pipe(uglify())
         .pipe(rename(config.outminjs))
-        .pipe(gulp.dest(config.bin_dir))
+        .pipe(gulp.dest(config.bin_dir));
 
-        .pipe(notify({message: 'js task complete'}));
+    gulp.src(config.build_dir+'/test.js')
+        .pipe(gulp.dest(config.bin_dir));
+
+       // .pipe(notify({message: 'js task complete'}));
 
 })
 
@@ -53,11 +56,16 @@ gulp.task('copy',['js'], function () {
         .pipe(gulp.dest(config.netsample))
         .pipe(gulp.dest(config.nodesample))
 		.pipe(notify({message: 'copy task complete'}));
-		
 });
 
 gulp.task('clean', function () {
-    return gulp.src(['config.build_dir','./Sample/PasteImageSample/PasteImageSample/UploadImage.js','./Sample/PasteImageSample/PasteImageSample/UploadImage.min.js'], {read: false})
+    return gulp.src([config.build_dir+"/*.js",
+            config. bin_dir+"/*.js",
+        './Sample/PasteImageSample/PasteImageSample/'+config.outjs,
+        './Sample/PasteImageSample/PasteImageSample/'+config.outminjs,
+        './Sample/nodejs/public/'+config.outjs,
+        './Sample/nodejs/public/'+config.outminjs
+    ], {read: false})
         .pipe(clean());
 });
 

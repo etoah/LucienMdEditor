@@ -3,3 +3,8 @@ F:\Projects\FrontEnd\PasteArea\Sample\PasteImageSample\PasteImageSample\bin\Past
 F:\Projects\FrontEnd\PasteArea\Sample\PasteImageSample\PasteImageSample\obj\Debug\PasteImageSample.csprojResolveAssemblyReference.cache
 F:\Projects\FrontEnd\PasteArea\Sample\PasteImageSample\PasteImageSample\obj\Debug\PasteImageSample.dll
 F:\Projects\FrontEnd\PasteArea\Sample\PasteImageSample\PasteImageSample\obj\Debug\PasteImageSample.pdb
+D:\Projects\ImgUploadJS\sample\dotnet\PasteImageSample\bin\PasteImageSample.dll
+D:\Projects\ImgUploadJS\sample\dotnet\PasteImageSample\bin\PasteImageSample.pdb
+D:\Projects\ImgUploadJS\sample\dotnet\PasteImageSample\obj\Debug\PasteImageSample.csprojResolveAssemblyReference.cache
+D:\Projects\ImgUploadJS\sample\dotnet\PasteImageSample\obj\Debug\PasteImageSample.dll
+D:\Projects\ImgUploadJS\sample\dotnet\PasteImageSample\obj\Debug\PasteImageSample.pdb

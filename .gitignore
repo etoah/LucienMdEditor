@@ -10,3 +10,10 @@
 /node_modules
 /dist
 /Sample/nodejs/node_modules
+/Sample/nodejs/upload
+/Sample/dotnet/PasteImageSample/upload
+/Sample/dotnet/PasteImageSample/LucienMardown.js
+/Sample/dotnet/PasteImageSample/LucienMardown.min.js
+/Sample/nodejs/public/LucienMardown.js
+/Sample/nodejs/public/LucienMardown.min.js
+/Sample/nodejs/public/UploadImage.min.js

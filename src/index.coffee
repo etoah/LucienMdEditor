@@ -4,17 +4,42 @@ markdown=require("./markdown.coffee")
 component=require("./components.coffee").Component
 imageUploader=require("./imageUploader.coffee")
 class LucienMardown extends component
-  constructor:(selector,url,key) ->
-    super(selector)
-    @imgUploader=new imageUploader(@contain,url,key)
+  constructor:(opt) ->
+    super(opt.selector)
+    opt.url&&@imgUploader=new imageUploader(@contain,opt.url,opt.key)
+    @keyupDelay=opt.delay||500
+
+  insertTextByObj = (obj, str) ->
+    if document.selection
+      sel = document.selection.createRange()
+      sel.text = str
+    else if typeof obj.selectionStart is "number" and typeof obj.selectionEnd is "number"
+      startPos = obj.selectionStart
+      endPos = obj.selectionEnd
+      cursorPos = startPos
+      tmpStr = obj.value
+      obj.value = tmpStr.substring(0, startPos) + str + tmpStr.substring(endPos, tmpStr.length)
+      cursorPos += str.length
+      obj.selectionStart = obj.selectionEnd = cursorPos
+    else
+      obj.value += str
 
 
   init:()->
+    renderTimer=null
+    _this=@
     @contain.innerHTML="<textarea style='height: 100%;width: 100%'></textarea>"
     @textarea=@contain.querySelector('textarea')
     @imgUploader.upload((xhr)=>
-      @insertTest "#![img](#{xhr.responseText})"
-      @publish('imgLoaded',xhr)
+      @insertText "![img](#{xhr.responseText})"
+      @publish('imgLoaded',xhr,@)
+    )
+
+    @contain.addEventListener("keyup",()->
+      clearTimeout(renderTimer)
+      renderTimer=setTimeout(()->
+        _this.publish("keyup",_this)
+      ,_this.keyupDelay)
     )
 
 
@@ -24,12 +49,19 @@ class LucienMardown extends component
   setText:(val)->
     return @textarea.value=val
 
-  insertTest:(val)->
+  addText:(val)->
     return @textarea.value=@textarea.value+val
+
+  insertText:(val)->
+    return insertTextByObj(@textarea,val)
+
 
   getHtml:()->
     @publish('complie',@)
     return markdown(@getText())
+
+
+
 
 
 module.exports=LucienMardown

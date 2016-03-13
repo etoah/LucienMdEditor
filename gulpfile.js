@@ -54,7 +54,8 @@ gulp.task('coffee', function() {
 
 //copy to demo
 gulp.task('copy', function () {
-    return gulp.src(config.build_dir+"/test.js")
+    return gulp.src("./src"+"/test.coffee")
+        .pipe(coffeeify())
         .pipe(gulp.dest(config.netsample))
         .pipe(gulp.dest(config.nodesample))
 		.pipe(notify({message: 'copy task complete'}));
@@ -71,10 +72,11 @@ gulp.task('clean', function () {
         .pipe(clean());
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', function (cb) {
 
     //coffee
     gulp.watch(config.coffee_files, ['coffee', 'copy'])
+    return cb();
 
 
 

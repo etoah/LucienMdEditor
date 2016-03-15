@@ -7,6 +7,7 @@ var gulp = require('gulp'),
     notify = require('gulp-notify'),
     coffee = require('gulp-coffee'),
     coffeeify=require('gulp-coffeeify'),
+    coffee=require('gulp-coffee'),
     runSequence = require("run-sequence");//控制task顺序;
 
 var config=
@@ -29,7 +30,8 @@ gulp.task('default', function () {
 //coffee
 gulp.task('coffee', function() {
     return  gulp.src(config.coffee_files)
-        .pipe(coffeeify())
+       // .pipe(coffeeify())
+        .pipe(coffee({bare: true}))
         .pipe(gulp.dest(config.build_dir))
       //  .pipe(notify({message: 'coffee task complete'}));
 });

@@ -7,7 +7,7 @@ var gulp = require('gulp'),
     notify = require('gulp-notify'),
     coffee = require('gulp-coffee'),
     coffeeify=require('gulp-coffeeify'),
- runSequence = require("run-sequence");//控制task顺序;
+    runSequence = require("run-sequence");//控制task顺序;
 
 var config=
 {

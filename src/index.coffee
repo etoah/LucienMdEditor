@@ -1,17 +1,17 @@
-
 sync=require("./sync.coffee")
 markdown=require("./markdown.coffee")
 component=require("./components.coffee").Component
 imageUploader=require("./imageUploader.coffee")
 storage=require("./storage.coffee")
-class LucienMardown extends component
+class LucienMardown  extends component
   constructor:(opt) ->
     super(opt.selector)
     opt.url&&@imgUploader=new imageUploader(@contain,opt.url,opt.key)
     @keyupDelay=opt.delay||500
     @storage=new storage({saveGap:3000})
     @subscribe('init',()->
-      @storage.autoSave(@textarea)
+	    @storage.autoSave(@textarea)
+	    @storage.addExitListener(@textarea)
     ,@)
 
   insertTextByObj = (obj, str) ->
@@ -35,7 +35,6 @@ class LucienMardown extends component
     _this=@
     @contain.innerHTML="<textarea style='height: 100%;width: 100%'></textarea>"
     @textarea=@contain.querySelector('textarea')
-    @publish('init',@)
     @imgUploader.upload((xhr)=>
       @insertText "![img](#{xhr.responseText})"
       @publish('imgLoaded',xhr,@)
@@ -47,6 +46,7 @@ class LucienMardown extends component
         _this.publish("keyup",_this)
       ,_this.keyupDelay)
     )
+    @publish('init',@)
 
 
   getText:()->
@@ -65,8 +65,6 @@ class LucienMardown extends component
   getHtml:()->
     @publish('complie',@)
     return markdown(@getText())
-
-
 
 
 

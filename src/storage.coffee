@@ -20,6 +20,7 @@ SElement=(idx,val)->
 
 class Storage extends event
   constructor:(opt)->
+    super()
     opt=opt||{}
     @key=opt.key||"Markdown"
     @autoSaveKey=opt.autoSavePrefix||"Lucien_AutoSave_"+@key
@@ -40,14 +41,15 @@ class Storage extends event
   ###
 
   autoSave:(element)->
-    deep=@autoSaveDeep
-    idx=0;
-    setTimeout(()=>
+	  deep=@autoSaveDeep
+	  idx=0
+	  setInterval(()=>
       currentValue=JSON.parse @getAutoValue()
       if(!currentValue)
         currentValue={}
         currentValue[0]=new SElement(idx,element.value)
       else if(element.value!=currentValue[0].value)
+        @publish('autosave',@)
         currentValue["i0"]=currentValue[0];
         idx++
         currentValue[0]=new SElement(idx,element.value)
@@ -77,9 +79,10 @@ class Storage extends event
         _this.setManualValue(JSON.stringify(currentValue))
     )()
 
-  addExitListener:(element)->
-    window.onbeforeunload = (element)=>
-      @setExitValue(element.value)
+  addExitListener:(ele)->
+    @recoverValue(ele)
+    window.onbeforeunload=()=>
+      @setExitValue(ele.value)
 
   getAutoValue:()->
     return local(@autoSaveKey)
@@ -89,7 +92,8 @@ class Storage extends event
   getManualValue:()->
     return local(@manualSaveKey)
   setManualValue:(val)->
-    return local(@manualSaveKey,val)
+	  @publish('manualsave',@)
+	  return local(@manualSaveKey,val)
 
   getExitValue:()->
     return local(@exitSaveKey)
@@ -97,9 +101,11 @@ class Storage extends event
     return local(@exitSaveKey,val)
 
   recoverValue:(element)->
-    val=getExitValue()
+    val=@getExitValue()
     if(val)
-      element.value=val
+	    element.value=val
+	    @setExitValue ''
+
 
 #static
 Storage.local=local

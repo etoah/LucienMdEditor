@@ -1,14 +1,9 @@
 #事件分发
 class Event
-    constructor: ()->
-        #储存订阅事件
+    constructor:()->
         @subscription = {}
 
-    #订阅
-    #@type 事件类型
-    #@fn 事件的回调函数
-    #@cons 执行回调函数的对象
-    subscribe: (type, fn, cons)->
+    _subscribe: (type, fn, cons)->
         if "undefined" is typeof @subscription.eventmap
             @subscription.eventmap = {}
         if "undefined" is typeof @subscription[type]
@@ -26,6 +21,17 @@ class Event
             @subscription.eventmap[id] = type
             p.push({"id": id, "response": fn, "caller": cons})
         return id
+
+    #订阅
+    #@type 事件类型 string or array
+    #@fn 事件的回调函数
+    #@cons 执行回调函数的对象
+    subscribe:(type, fn, cons)->
+        if typeof type=='string'
+            @_subscribe(type, fn, cons)
+        else if Object.prototype.toString.call(type) == '[object Array]'
+            @_subscribe t,fn,cons for t in type
+
 
     #触发事件
     #@type 事件类型

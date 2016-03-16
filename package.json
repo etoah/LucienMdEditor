@@ -1,7 +1,7 @@
 {
-  "name": "ImgUploadJS",
+  "name": "mdeditor",
   "version": "0.0.1",
-  "description": "* 截图后直接粘贴上传。    \r ![](./doc/howtouse.gif)",
+  "description": "* markdown editor。    \r ![](./doc/howtouse.gif)",
   "main": "gulpfile.js",
   "directories": {
     "doc": "doc"

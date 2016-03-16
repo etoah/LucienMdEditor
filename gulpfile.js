@@ -17,8 +17,8 @@ var config=
     bin_dir:"./dist/bin",
     outjs:'test.js',
     outminjs:'test.min.js',
-    netsample:'./Sample/dotnet/PasteImageSample/',
-    nodesample:".//Sample/nodejs/public/"
+    netsample:'./demo/dotnet/PasteImageSample/',
+    nodesample:"./demo/nodejs/public/"
 
 }
 //clean js
@@ -30,9 +30,11 @@ gulp.task('default', function () {
 //coffee
 gulp.task('coffee', function() {
     return  gulp.src(config.coffee_files)
-       // .pipe(coffeeify())
-        .pipe(coffee({bare: true}))
-        .pipe(gulp.dest(config.build_dir))
+      .pipe(coffeeify({
+          require:config.coffee_files
+      }))
+       // .pipe(coffee({bare: true}))
+      .pipe(gulp.dest(config.build_dir))
       //  .pipe(notify({message: 'coffee task complete'}));
 });
 
@@ -57,7 +59,9 @@ gulp.task('coffee', function() {
 //copy to demo
 gulp.task('copy', function () {
     return gulp.src("./src"+"/test.coffee")
-        .pipe(coffeeify())
+        .pipe(coffeeify({
+            require:config.coffee_files
+        }))
         .pipe(gulp.dest(config.netsample))
         .pipe(gulp.dest(config.nodesample))
 		.pipe(notify({message: 'copy task complete'}));
@@ -68,18 +72,14 @@ gulp.task('clean', function () {
             config. bin_dir+"/*.js",
         './Sample/PasteImageSample/PasteImageSample/'+config.outjs,
        // './Sample/PasteImageSample/PasteImageSample/'+config.outminjs,
-        './Sample/nodejs/public/'+config.outjs,
-        './Sample/nodejs/public/'+config.outminjs
+        './demo/nodejs/public/'+config.outjs,
+        './demo/nodejs/public/'+config.outminjs
     ], {read: false})
         .pipe(clean());
 });
 
 gulp.task('watch', function (cb) {
-
     //coffee
     gulp.watch(config.coffee_files, ['coffee', 'copy'])
     return cb();
-
-
-
 });

@@ -1,18 +1,25 @@
 ﻿<!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        html,body,form,.container-fluid,.row,#box,#show
+        {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+    </style>
     <title></title>
 </head>
 <body>
-    <form id="form1" runat="server">
-        <div>
-            请截图后粘贴或拖拽到下框：
-            <div style="clear: both"></div>
-            <div id="box" style="width: 800px; height: 400px; border: 1px solid;float: left"></div>
-            <div id="show" style="width: 800px; min-height: 400px; border: 1px solid; float: left"></div>
+<form id="form1"  >
+    <div class="container-fluid" >
+        <div class="row" >
+            <div id="box" class="col-md-6"></div>
+            <div id="show" class="col-md-6" style="border: solid 1px #f8f8ff;"></div>
             <script type="text/javascript" src="LucienMarkdown.js"></script>
             <script>
                 var md, show;
@@ -24,11 +31,11 @@
                     url: "../Upload"
                 });
 
-                md.subscribe("imgLoaded", function() {
+                md.subscribe("imgLoaded", function () {
                     return show.innerHTML = md.getHtml();
                 });
 
-                md.subscribe(["init", "keyup"], function(md) {
+                md.subscribe(["init", "keyup"], function (md) {
                     return show.innerHTML = md.getHtml();
                 });
 
@@ -37,6 +44,7 @@
 
             </script>
         </div>
-    </form>
+    </div>
+</form>
 </body>
 </html>

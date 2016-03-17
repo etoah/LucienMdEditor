@@ -3,7 +3,7 @@ markdown=require("./markdown.coffee")
 component=require("./components.coffee").Component
 imageUploader=require("./imageUploader.coffee")
 storage=require("./storage.coffee")
-UMDDefine=require("./UMDDefine.coffee")
+UMDDefine=require("umd-define")
 
 class LucienMardown  extends component
   constructor:(opt) ->
@@ -35,7 +35,7 @@ class LucienMardown  extends component
   init:()->
     renderTimer=null
     _this=@
-    @contain.innerHTML="<textarea style='height: 100%;width: 100%'></textarea>"
+    @contain.innerHTML="<textarea style='min-height: 100%;width: 100%;'></textarea>"
     @textarea=@contain.querySelector('textarea')
     @imgUploader.upload((xhr)=>
       @insertText "![img](#{xhr.responseText})"

@@ -1,85 +1,70 @@
 var gulp = require('gulp'),
-  //  htmlmin = require('gulp-htmlmin'), //htmlѹ��
+//  htmlmin = require('gulp-htmlmin'), //htmlѹ��
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
     clean = require('gulp-clean'),
     concat = require('gulp-concat'),
     notify = require('gulp-notify'),
     coffee = require('gulp-coffee'),
-    coffeeify=require('gulp-coffeeify'),
-    coffee=require('gulp-coffee'),
+    coffeeify = require('gulp-coffeeify'),
+    coffee = require('gulp-coffee'),
+    nodemon=require('gulp-nodemon'),
     runSequence = require("run-sequence");//控制task顺序;
 
-var config=
+var config =
 {
-    coffee_files:"./src/*.coffee",
-    build_dir:"./dist",
-    bin_dir:"./dist/bin",
-    outjs:'test.js',
-    outminjs:'test.min.js',
-    netsample:'./demo/dotnet/PasteImageSample/',
-    nodesample:"./demo/nodejs/public/"
+    coffee_files: "./src/LucienMarkdown.coffee",
+    build_dir: "./dist",
+    bin_dir: "./dist/bin",
+    outjs: 'LucienMarkdown.js',
+    outminjs: 'LucienMarkdown.min.js',
+    netsample: './demo/dotnet/PasteImageSample/',
+    nodedemosrc:'./demo/nodejs/',
+    nodesample: "./demo/nodejs/public/"
 
 }
 //clean js
 gulp.task('default', function () {
-    gulp.start('coffee','copy');
-    gulp.start('copy','watch');
+    console.log(config.nodesample);
+    gulp.start('clean','compile', 'watch','develop');
 });
 
 //coffee
-gulp.task('coffee', function() {
-    return  gulp.src(config.coffee_files)
-      .pipe(coffeeify({
-          require:config.coffee_files
-      }))
-       // .pipe(coffee({bare: true}))
-      .pipe(gulp.dest(config.build_dir))
-      //  .pipe(notify({message: 'coffee task complete'}));
-});
-
-
-//gulp.task('js',['coffee'],function(){
-//
-//    gulp.src(config.build_dir+"/*.js")
-//        .pipe(concat(config.outjs))
-//        .pipe(gulp.dest(config.bin_dir))
-//        .pipe(uglify())
-//        .pipe(rename(config.outminjs))
-//        .pipe(gulp.dest(config.bin_dir));
-//
-//    gulp.src(config.build_dir+'/test.js')
-//        .pipe(gulp.dest(config.bin_dir));
-//
-//       // .pipe(notify({message: 'js task complete'}));
-//
-//})
-
-
-//copy to demo
-gulp.task('copy', function () {
-    return gulp.src("./src"+"/test.coffee")
-        .pipe(coffeeify({
-            require:config.coffee_files
-        }))
+gulp.task('compile', function () {
+    return gulp.src(config.coffee_files)
+        .pipe(coffeeify())
+        .pipe(gulp.dest(config.build_dir))
         .pipe(gulp.dest(config.netsample))
         .pipe(gulp.dest(config.nodesample))
-		.pipe(notify({message: 'copy task complete'}));
+        .pipe(uglify())
+        .pipe(rename(config.outminjs))
+        .pipe(gulp.dest(config.netsample))
+        .pipe(gulp.dest(config.nodesample))
+        .pipe(notify({message: 'compile server restarted'}))
+});
+
+gulp.task('develop',['compile'],function(){
+    nodemon({ script: config.nodedemosrc+'app.js'
+        , ext: 'html js'
+         })
+        .on('restart', function () {
+            console.log( ' demo server restarted!');
+        })
 });
 
 gulp.task('clean', function () {
-    return gulp.src([config.build_dir+"/*.js",
-            config. bin_dir+"/*.js",
-        './Sample/PasteImageSample/PasteImageSample/'+config.outjs,
-       // './Sample/PasteImageSample/PasteImageSample/'+config.outminjs,
-        './demo/nodejs/public/'+config.outjs,
-        './demo/nodejs/public/'+config.outminjs
-    ], {read: false})
+    return gulp.src([config.build_dir + "/*.js",
+            config.bin_dir + "/*.js",
+            config.netsample + config.outjs,
+            config.netsample + config.outminjs,
+            config.nodesample + config.outjs,
+            config.nodesample + config.outminjs
+        ], {read: false})
         .pipe(clean());
 });
 
 gulp.task('watch', function (cb) {
     //coffee
-    gulp.watch(config.coffee_files, ['coffee', 'copy'])
+    gulp.watch(config.coffee_files, ['compile'])
     return cb();
 });

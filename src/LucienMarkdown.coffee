@@ -3,6 +3,8 @@ markdown=require("./markdown.coffee")
 component=require("./components.coffee").Component
 imageUploader=require("./imageUploader.coffee")
 storage=require("./storage.coffee")
+UMDDefine=require("./UMDDefine.coffee")
+
 class LucienMardown  extends component
   constructor:(opt) ->
     super(opt.selector)
@@ -67,6 +69,8 @@ class LucienMardown  extends component
     return markdown(@getText())
 
 
+UMDDefine "LucienMardown",()->
+  return LucienMardown
 
 module.exports=LucienMardown
 

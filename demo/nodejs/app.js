@@ -23,6 +23,8 @@ Date.prototype.format = function(fmt) {
     return fmt;
 };
 
+var execpath="./demo/nodejs/";
+var respath="./";
 
 var express = require("express"),
  bodyParser = require('body-parser'),
@@ -36,7 +38,8 @@ app.use('/upload',express.static(__dirname + '/upload'));
 app.use(bodyParser.json());
 app.post("/upload", function(req, res) {
     //
-        var fileName ="./upload/"+(new Date()).format("yyyyMMddhhmmssS")+".png";
+        var fileName ="upload/"+(new Date()).format("yyyyMMddhhmmssS")+".png";
+        console.info("----------------------------"+new Date()+"----------------------------");
         console.info("req.headers:");
         console.info(req.headers);
         console.info("req.params:");
@@ -48,7 +51,7 @@ app.post("/upload", function(req, res) {
 
 
         var form = new formidable.IncomingForm();
-        form.uploadDir = './upload/';    //上传目录
+        form.uploadDir =execpath+ '/upload/';    //上传目录
         form.keepExtensions = true;             //保留后缀格式
         form.maxFieldsSize = 2*1024*1024;       //文件大小
         form.parse(req, function(err, fields, files){
@@ -67,11 +70,11 @@ app.post("/upload", function(req, res) {
             {
                 var base64Data = fields.AreaImgKey.replace(/^data:image\/\w+;base64,/, "");
                 var dataBuffer = new Buffer(base64Data, 'base64');
-                fs.writeFile(fileName, dataBuffer, function(err) {
+                fs.writeFile(execpath+fileName, dataBuffer, function(err) {
                     if(err){
                         console.log(err);
                     }else{
-                        res.send(fileName);
+                        res.send(respath+fileName);
                         res.end();
                         return;
                     }
@@ -84,5 +87,5 @@ app.post("/upload", function(req, res) {
 
 app.listen(10000,function(){
             console.log("server is listening on "+10000)
-            console.log("http://localhost:10000/markdown.html");
+            console.log("you can access http://localhost:10000/markdown.html");
         });

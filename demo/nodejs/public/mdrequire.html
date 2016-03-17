@@ -9,16 +9,34 @@
     <form id="form1" runat="server">
     <div>
      请截图后粘贴或拖拽到下框：
-            <div id="box" style="width: 800px; height: 400px; border: 1px solid;" contenteditable="true"></div>
+        请截图后粘贴或拖拽到下框：
+        <div style="clear: both"></div>
+        <div id="box" style="width: 800px; height: 400px; border: 1px solid;float: left"></div>
+        <div id="show" style="width: 800px; min-height: 400px; border: 1px solid; float: left"></div>
             <script type="text/javascript" src="require.js"></script>
 
             <script>
 
-                require(['LucienMardown'], function (LucienMardown) {
+                require(['LucienMarkdown'], function (LucienMardown) {
 
-                    var md= new LucienMardown("box", "../Upload");
+                    var md, show;
+
+                    show = document.querySelector("#show");
+
+                    md = new LucienMardown({
+                        selector: "#box",
+                        url: "../Upload"
+                    });
+
+                    md.subscribe("imgLoaded", function() {
+                        return show.innerHTML = md.getHtml();
+                    });
+
+                    md.subscribe(["init", "keyup"], function(md) {
+                        return show.innerHTML = md.getHtml();
+                    });
+
                     md.render();
-
                 })
 
 

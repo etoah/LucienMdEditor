@@ -32,6 +32,7 @@
     "gulp-coffeeify": "^0.1.8",
     "gulp-coffeelint": "^0.6.0",
     "gulp-concat": "^2.6.0",
+    "gulp-nodemon": "^2.0.6",
     "gulp-notify": "^2.2.0",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.5.3",

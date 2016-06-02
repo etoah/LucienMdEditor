@@ -23,8 +23,8 @@ Date.prototype.format = function(fmt) {
     return fmt;
 };
 
-var execpath="./demo/nodejs/";
-var respath="./";
+var execpath="./demo/nodejs/upload/";
+var respath="./upload/";
 
 var express = require("express"),
  bodyParser = require('body-parser'),
@@ -38,7 +38,7 @@ app.use('/upload',express.static(__dirname + '/upload'));
 app.use(bodyParser.json());
 app.post("/upload", function(req, res) {
     //
-        var fileName ="upload/"+(new Date()).format("yyyyMMddhhmmssS")+".png";
+        var fileName =(new Date()).format("yyyyMMddhhmmssS")+".png";
         console.info("----------------------------"+new Date()+"----------------------------");
         console.info("req.headers:");
         console.info(req.headers);
@@ -51,9 +51,14 @@ app.post("/upload", function(req, res) {
 
 
         var form = new formidable.IncomingForm();
-        form.uploadDir =execpath+ '/upload/';    //上传目录
+        form.uploadDir =execpath;   //上传目录
         form.keepExtensions = true;             //保留后缀格式
         form.maxFieldsSize = 2*1024*1024;       //文件大小
+
+        form.on('file', function(field, file) {
+            //rename the incoming file to the file's name
+            fs.rename(file.path, form.uploadDir +fileName);
+        });
         form.parse(req, function(err, fields, files){
             if (err){
                 console.log('error', '文件上传失败',err);
@@ -61,7 +66,7 @@ app.post("/upload", function(req, res) {
             //process input file
             if(files.AreaImgKey)
             {
-                res.send(files.AreaImgKey.path);
+                res.send(respath+fileName);
                 res.end();
                 return;
             }

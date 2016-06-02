@@ -1,4 +1,4 @@
-/Sample/PasteImageSample/PasteImageSample/upload
+
 /.idea/.name
 /.idea/PasteArea.iml
 /.idea/encodings.xml
@@ -9,16 +9,12 @@
 /.idea
 /node_modules
 /dist
-/Sample/nodejs/node_modules
-/Sample/nodejs/upload
-/Sample/dotnet/PasteImageSample/upload
-/Sample/dotnet/PasteImageSample/LucienMardown.js
-/Sample/dotnet/PasteImageSample/LucienMardown.min.js
-/Sample/nodejs/public/LucienMardown.js
-/Sample/nodejs/public/LucienMardown.min.js
-/Sample/nodejs/public/UploadImage.min.js
 /demo/nodejs/upload
+/demo/nodejs/upload/.gitkeep
 /demo/dotnet/PasteImageSample/LucienMarkdown.js
 /demo/dotnet/PasteImageSample/LucienMarkdown.min.js
 /demo/nodejs/public/LucienMarkdown.js
 /demo/nodejs/public/LucienMarkdown.min.js
+
+
+

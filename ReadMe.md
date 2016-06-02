@@ -47,6 +47,17 @@
 * FireFox
 * Safari(未测式，理论应该支持)
 
+## 运行
+
+安装依赖：
+`npm install`
+
+运行开发
+`gulp `
+
+浏览器访问：`http://localhost:10000/markdown.html`
+
+
 ###原理
 
 1. 粘贴上传   

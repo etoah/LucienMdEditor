@@ -1,2 +1,4 @@
-markdown = require( "markdown" ).markdown
-module.exports=markdown.toHTML
+md = require('markdown-it')()
+module.exports=(string)->
+	md.render string
+

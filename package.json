@@ -21,7 +21,8 @@
   },
   "homepage": "https://github.com/etoah/ImgUploadJS",
   "dependencies": {
-    "markdown": "^0.5.0"
+    "markdown": "^0.5.0",
+    "markdown-it": "^6.0.5"
   },
   "devDependencies": {
     "codemirror": "^5.12.0",

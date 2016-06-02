@@ -13,7 +13,7 @@ var gulp = require('gulp'),
 
 var config =
 {
-    coffee_files: "./src/LucienMarkdown.coffee",
+    coffee_files: "./src/**/*.*",
     build_dir: "./dist",
     bin_dir: "./dist/bin",
     outjs: 'LucienMarkdown.js',

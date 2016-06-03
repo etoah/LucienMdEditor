@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.1.0/styles/github.min.css">
+	<script src="https://highlightjs.org/static/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+    <style>
+        html,body,form,.container-fluid,.con,#mdedior,#preview
+        {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+	        position: relative;
+        }
+        div.con
+	    {
+		    margin: 10px;
+		    position: relative;
+		    margin: 0 auto;
+		    width: 1000px;
+		    height: 800px;
+	    }
+	    #preview,#mdedior>textarea{
+
+		    border: solid #3F7F7F 1px;
+		    border-radius: 10px;
+		    overflow: auto;
+	    }
+        #preview img
+        {
+	        max-width: 100%;
+        }
+
+	    #preview
+	    {
+		    display: none;
+	    }
+	    .preview-btn
+	    {
+		    position: relative;
+		    border: solid #3F7F7F 1px;
+		    border-radius: 4px;
+		    padding: 3px;
+		    float: right;
+		    top: -2.5em;
+		    right: 0.5em;
+	    }
+
+    </style>
+    <title></title>
+</head>
+<body>
+<form id="form1"  >
+    <div class="container-fluid" >
+        <div class="con" >
+            <div id="mdedior"></div>
+	        <div id="preview"></div>
+	        <span class="preview-btn">preview</span>
+            <script type="text/javascript" src="LucienMarkdown.js"></script>
+            <script>
+	            (function(){
+		            var md= new LucienMardown({
+			            selector: "#mdedior",
+			            url: "../Upload"
+		            });
+		            md.render();
+					var preview=document.querySelector("#preview");
+		            var previewBtn=document.querySelector('.preview-btn');
+		            var mdedior=document.querySelector("#mdedior");
+		            previewBtn.addEventListener("click",function(){
+
+			            if(preview.isShow)
+			            {
+				            mdedior.style.display="block";
+				            preview.style.display="none";
+
+			            }
+			            else {
+				            mdedior.style.display="none";
+				            preview.style.display="block";
+				            preview.innerHTML=md.getHtml();
+
+			            }
+			            preview.isShow=! preview.isShow
+		            })
+	            })();
+            </script>
+        </div>
+    </div>
+</form>
+</body>
+</html>

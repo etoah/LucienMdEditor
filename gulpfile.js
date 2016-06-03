@@ -22,11 +22,11 @@ var config =
     nodedemosrc:'./demo/nodejs/',
     nodesample: "./demo/nodejs/public/"
 
-}
+};
 //clean js
 gulp.task('default', function () {
     console.log(config.nodesample);
-    gulp.start('clean','compile', 'watch','develop');
+    runSequence('clean','compile','copy', 'watch','develop');
 });
 
 //coffee
@@ -34,13 +34,16 @@ gulp.task('compile', function () {
     return gulp.src(config.coffee_files)
         .pipe(coffeeify())
         .pipe(gulp.dest(config.build_dir))
-        .pipe(gulp.dest(config.netsample))
-        .pipe(gulp.dest(config.nodesample))
         .pipe(uglify())
         .pipe(rename(config.outminjs))
+        .pipe(gulp.dest(config.build_dir))
+        .pipe(notify({message: 'compile server restarted'}))
+});
+
+gulp.task('copy',function(){
+    return gulp.src([config.build_dir+'/'+config.outjs,config.build_dir+'/'+config.outminjs])
         .pipe(gulp.dest(config.netsample))
         .pipe(gulp.dest(config.nodesample))
-        .pipe(notify({message: 'compile server restarted'}))
 });
 
 gulp.task('develop',['compile'],function(){
@@ -65,6 +68,6 @@ gulp.task('clean', function () {
 
 gulp.task('watch', function (cb) {
     //coffee
-    gulp.watch(config.coffee_files, ['compile'])
+    gulp.watch(config.coffee_files, ['compile']);
     return cb();
 });

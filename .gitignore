@@ -10,7 +10,7 @@
 /node_modules
 /dist
 /demo/nodejs/upload
-/demo/nodejs/upload/.gitkeep
+!/demo/nodejs/upload/.gitkeep
 /demo/dotnet/PasteImageSample/LucienMarkdown.js
 /demo/dotnet/PasteImageSample/LucienMarkdown.min.js
 /demo/nodejs/public/LucienMarkdown.js

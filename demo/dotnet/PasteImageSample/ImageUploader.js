@@ -102,7 +102,7 @@ Event = (function() {
     this.subscription = {};
   }
 
-  Event.prototype._subscribe = function(type, fn, cons) {
+  Event.prototype.$subscribe = function(type, fn, cons) {
     var f, id, p, r;
     if ("undefined" === typeof this.subscription.eventmap) {
       this.subscription.eventmap = {};
@@ -135,12 +135,12 @@ Event = (function() {
   Event.prototype.subscribe = function(type, fn, cons) {
     var i, len1, results, t;
     if (typeof type === 'string') {
-      return this._subscribe(type, fn, cons);
+      return this.$subscribe(type, fn, cons);
     } else if (Object.prototype.toString.call(type) === '[object Array]') {
       results = [];
       for (i = 0, len1 = type.length; i < len1; i++) {
         t = type[i];
-        results.push(this._subscribe(t, fn, cons));
+        results.push(this.$subscribe(t, fn, cons));
       }
       return results;
     }

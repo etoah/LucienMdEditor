@@ -3,7 +3,7 @@ class Event
     constructor:()->
         @subscription = {}
 
-    _subscribe: (type, fn, cons)->
+    $subscribe: (type, fn, cons)->
         if "undefined" is typeof @subscription.eventmap
             @subscription.eventmap = {}
         if "undefined" is typeof @subscription[type]
@@ -28,9 +28,9 @@ class Event
     #@cons 执行回调函数的对象
     subscribe:(type, fn, cons)->
         if typeof type=='string'
-            @_subscribe(type, fn, cons)
+            @$subscribe(type, fn, cons)
         else if Object.prototype.toString.call(type) == '[object Array]'
-            @_subscribe t,fn,cons for t in type
+            @$subscribe t,fn,cons for t in type
 
 
     #触发事件

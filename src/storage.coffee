@@ -1,5 +1,5 @@
 event=require("./components.coffee").Event
-_storage = (key, value, isDel, storage) ->
+$storage = (key, value, isDel, storage) ->
   return storage.removeItem(key)  if isDel is false
   if value is `undefined`
     storage.getItem key
@@ -7,12 +7,12 @@ _storage = (key, value, isDel, storage) ->
     storage.setItem key, value
 
 local=(key, value, isDel)->
-  return _storage(key, value, isDel,window.localStorage)
+  return $storage(key, value, isDel,window.localStorage)
 
 session=(key, value, isDel)->
-  return _storage(key, value, isDel,window.sessionStorage)
+  return $storage(key, value, isDel,window.sessionStorage)
 
-SElement=(idx,val)->
+storageInstance=(idx,val)->
     @idx=idx
     @time=new Date()
     @value=val
@@ -47,12 +47,12 @@ class Storage extends event
       currentValue=JSON.parse @getAutoValue()
       if(!currentValue)
         currentValue={}
-        currentValue[0]=new SElement(idx,element.value)
+        currentValue[0]=new storageInstance(idx,element.value)
       else if(element.value!=currentValue[0].value)
         @publish('autosave',@)
         currentValue["i0"]=currentValue[0];
         idx++
-        currentValue[0]=new SElement(idx,element.value)
+        currentValue[0]=new storageInstance(idx,element.value)
         for i in [1...deep]
           if(currentValue["i#{i-1}"]&&currentValue["i#{i-1}"].idx%Math.pow(3,i)==0)
             currentValue[i]=currentValue["i#{i-1}"]

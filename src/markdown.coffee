@@ -3,8 +3,8 @@ md = require('markdown-it')({
 		if lang and hljs.getLanguage(lang)
 			try
 				return hljs.highlight(lang, str).value
-			catch _error
-				__ = _error;
+			catch $error
+				console.log $error;
 		return ''
 	})
 module.exports=(string)->

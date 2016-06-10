@@ -1,5 +1,5 @@
 /**
- * Created by admin on 2016/3/3.
+ * Created by Lucien on 2016/3/3.
  */
 Date.prototype.format = function (fmt) {
     var k, o;

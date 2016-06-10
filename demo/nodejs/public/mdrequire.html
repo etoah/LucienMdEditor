@@ -2,46 +2,54 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>粘贴上传</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/9.1.0/styles/github.min.css">
+	<script src="https://highlightjs.org/static/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<style>
+		html,body,form,.container-fluid,.row,#box,#show
+		{
+			margin: 0;
+			padding: 0;
+			height: 100%;
+		}
+		#show
+		{
+			overflow: auto;
+		}
+	</style>
+	<title>LucienMardown</title>
 </head>
 <body>
-    <form id="form1" runat="server">
-    <div>
-     请截图后粘贴或拖拽到下框：
-        请截图后粘贴或拖拽到下框：
-        <div style="clear: both"></div>
-        <div id="box" style="width: 800px; height: 400px; border: 1px solid;float: left"></div>
-        <div id="show" style="width: 800px; min-height: 400px; border: 1px solid; float: left"></div>
-            <script type="text/javascript" src="require.js"></script>
+<form id="form1">
+	<div class="container-fluid">
+		<div class="row">
+			<div id="box" class="col-md-6"></div>
+			<div id="show" class="col-md-6" style="border: solid 1px #f8f8ff;"></div>
+		</div>
+	</div>
+</form>
 
-            <script>
+<script type="text/javascript" src="require.js"></script>
+<script>
+	require(['LucienMarkdown'], function (LucienMardown) {
+		var md, show;
+		show = document.querySelector("#show");
+		md = new LucienMardown({
+			selector: "#box",
+			url: "../Upload"
+		});
+		md.subscribe("imgLoaded", function () {
+			return show.innerHTML = md.getHtml();
+		});
+		md.subscribe(["init", "keyup"], function (md) {
+			return show.innerHTML = md.getHtml();
+		});
+		md.render();
+	})
+	
+</script>
 
-                require(['LucienMarkdown'], function (LucienMardown) {
-
-                    var md, show;
-
-                    show = document.querySelector("#show");
-
-                    md = new LucienMardown({
-                        selector: "#box",
-                        url: "../Upload"
-                    });
-
-                    md.subscribe("imgLoaded", function() {
-                        return show.innerHTML = md.getHtml();
-                    });
-
-                    md.subscribe(["init", "keyup"], function(md) {
-                        return show.innerHTML = md.getHtml();
-                    });
-
-                    md.render();
-                })
-
-
-            </script>
-    </div>
-    </form>
 </body>
 </html>

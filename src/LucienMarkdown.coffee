@@ -1,9 +1,9 @@
 sync=require("./sync.coffee")
 markdown=require("./markdown.coffee")
 component=require("./components.coffee").Component
-imageUploader=require("./imageUploader.coffee")
+imageUploader=require("./imageuploader.coffee")
 storage=require("./storage.coffee")
-UMDDefine=require("umd-define")
+umdDefine=require("umd-define")
 
 class LucienMardown  extends component
   constructor:(opt) ->
@@ -69,7 +69,7 @@ class LucienMardown  extends component
     return markdown(@getText())
 
 
-UMDDefine "LucienMardown",()->
+umdDefine "LucienMardown",()->
   return LucienMardown
 
 module.exports=LucienMardown

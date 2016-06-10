@@ -29,25 +29,18 @@
             <script type="text/javascript" src="LucienMarkdown.js"></script>
             <script>
                 var md, show;
-
                 show = document.querySelector("#show");
-
                 md = new LucienMardown({
                     selector: "#box",
                     url: "../Upload"
                 });
-
                 md.subscribe("imgLoaded", function () {
                     return show.innerHTML = md.getHtml();
                 });
-
                 md.subscribe(["init", "keyup"], function (md) {
                     return show.innerHTML = md.getHtml();
                 });
-
                 md.render();
-
-
             </script>
         </div>
     </div>

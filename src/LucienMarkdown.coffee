@@ -11,7 +11,7 @@ class LucienMardown  extends component
     opt.url&&@imgUploader=new imageUploader(@contain,opt.url,opt.key)
     @keyupDelay=opt.delay||500
     @storage=new storage({saveGap:3000})
-    @subscribe('init',()->
+    @subscribe(LucienMardown.OnInit,()->
 	    @storage.autoSave(@textarea)
 	    @storage.addExitListener(@textarea)
     ,@)
@@ -39,16 +39,16 @@ class LucienMardown  extends component
     @textarea=@contain.querySelector('textarea')
     @imgUploader.upload((xhr)=>
       @insertText "![img](#{xhr.responseText})"
-      @publish('imgLoaded',xhr,@)
+      @publish(LucienMardown.OnImgLoaded,xhr,@)
     )
 
     @contain.addEventListener("keyup",()->
       clearTimeout(renderTimer)
       renderTimer=setTimeout(()->
-        _this.publish("keyup",_this)
+        _this.publish(LucienMardown.OnIKeyup,_this)
       ,_this.keyupDelay)
     )
-    @publish('init',@)
+    @publish(LucienMardown.OnInit,@)
 
 
   getText:()->
@@ -65,9 +65,14 @@ class LucienMardown  extends component
 
 
   getHtml:()->
-    @publish('complie',@)
+    @publish(LucienMardown.OnComplie,@)
     return markdown(@getText())
 
+
+LucienMardown.OnInit="init"
+LucienMardown.OnComplie="complie"
+LucienMardown.OnImgLoaded="imgLoaded"
+LucienMardown.OnIKeyup="keyup"
 
 umdDefine "LucienMardown",()->
   return LucienMardown

@@ -34,10 +34,10 @@
                     selector: "#box",
                     url: "../Upload"
                 });
-                md.subscribe("imgLoaded", function () {
+                md.subscribe(LucienMardown.OnImgLoaded, function () {
                     return show.innerHTML = md.getHtml();
                 });
-                md.subscribe(["init", "keyup"], function (md) {
+                md.subscribe([LucienMardown.OnInit, LucienMardown.OnIKeyup], function (md) {
                     return show.innerHTML = md.getHtml();
                 });
                 md.render();

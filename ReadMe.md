@@ -10,10 +10,10 @@
                     selector: "#box",
                     url: "../Upload"
                 });
-                md.subscribe("imgLoaded", function () {
+                md.subscribe(LucienMardown.OnImgLoaded, function () {
                     return show.innerHTML = md.getHtml();
                 });
-                md.subscribe(["init", "keyup"], function (md) {
+                md.subscribe([LucienMardown.OnInit, LucienMardown.OnIKeyup], function (md) {
                     return show.innerHTML = md.getHtml();
                 });
                 md.render();
@@ -28,12 +28,12 @@
 			selector: "#box",
 			url: "../Upload"
 		});
-		md.subscribe("imgLoaded", function () {
-			return show.innerHTML = md.getHtml();
-		});
-		md.subscribe(["init", "keyup"], function (md) {
-			return show.innerHTML = md.getHtml();
-		});
+        md.subscribe(LucienMardown.OnImgLoaded, function () {
+            return show.innerHTML = md.getHtml();
+        });
+        md.subscribe([LucienMardown.OnInit, LucienMardown.OnIKeyup], function (md) {
+            return show.innerHTML = md.getHtml();
+        });
 		md.render();
 	})
    ```
@@ -60,14 +60,12 @@
 ## 功能
 
 * 代码高亮
-
+* 退出保存
 * 截图后直接粘贴上传。
 ![](./doc/howtouse.gif)
-
 * 拖拽上传
 ![](./doc/drap.gif)
-**http网络**
-![](./doc/requestAndRes.jpg)
+
 
 ##原理
 
